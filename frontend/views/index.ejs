@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Resource Allocation Optimizer</title>
+    <link rel="stylesheet" href="/css/style.css">
+</head>
+<body>
+    <h1>Resource Allocation Optimizer</h1>
+
+    <form action="/optimize" method="POST">
+        <label>Total Capacity:</label>
+        <input type="number" name="capacity" min="0" step="any" required>
+        
+        <table id="taskTable">
+            <thead>
+                <tr>
+                    <th>Task Name</th>
+                    <th>Weight</th>
+                    <th>Value</th>
+                    <th>Extra (Optional)</th>
+                    <th>Remove</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td><input name="tasks[0][name]" required></td>
+                    <td><input name="tasks[0][weight]" type="number" min="0" step="any" required></td>
+                    <td><input name="tasks[0][value]" type="number" min="0" step="any" required></td>
+                    <td><input name="tasks[0][extra]"></td>
+                    <td><button type="button" class="removeBtn">Remove</button></td>
+                </tr>
+            </tbody>
+        </table>
+
+        <button type="button" id="addRow">Add Task</button>
+        <button type="submit">Optimize</button>
+    </form>
+
+    <script src="/js/script.js"></script>
+</body>
+</html>

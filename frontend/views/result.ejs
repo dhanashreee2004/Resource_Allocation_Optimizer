@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Optimization Results</title>
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background: #f3e8ff; /* Lavender-ish background */
+      color: #333;
+      margin: 20px;
+    }
+    h1 {
+      color: #9b59b6; /* Dark lavender */
+    }
+    ul {
+      list-style: none;
+      padding-left: 0;
+    }
+    li {
+      padding: 3px 0;
+    }
+    canvas {
+      max-width: 600px;
+      margin-bottom: 40px;
+    }
+  </style>
+</head>
+<body>
+  <h1>Knapsack DP Result</h1>
+  <p>Max Value: <%= knapsackDP.maxValue.toFixed(2)%></p>
+  <ul>
+    <% knapsackDP.selectedTasks.forEach(task => { %>
+      <li><%= task.name %> (Weight: <%= task.weight %>, Value: <%= task.value %>)</li>
+    <% }) %>
+  </ul>
+  <canvas id="knapsackChart"></canvas>
+
+  <h1>Greedy Result</h1>
+  <p>Max Value: <%= greedyAlgo.maxValue.toFixed(2) %></p>
+  <ul>
+    <% greedyAlgo.selectedTasks.forEach(task => { %>
+      <li><%= task.name %> (Weight: <%= task.weight %>, Value: <%= task.value %>)</li>
+    <% }) %>
+  </ul>
+  <canvas id="greedyChart"></canvas>
+
+  <script>
+    // Prepare data for charts
+    const knapsackData = {
+      labels: <%- JSON.stringify(knapsackDP.selectedTasks.map(t => t.name)) %>,
+      datasets: [{
+        label: 'Value',
+        data: <%- JSON.stringify(knapsackDP.selectedTasks.map(t => t.value)) %>,
+        backgroundColor: 'rgba(155, 89, 182, 0.6)',
+        borderColor: 'rgba(155, 89, 182, 1)',
+        borderWidth: 1
+      }]
+    };
+
+    const greedyData = {
+      labels: <%- JSON.stringify(greedyAlgo.selectedTasks.map(t => t.name)) %>,
+      datasets: [{
+        label: 'Value',
+        data: <%- JSON.stringify(greedyAlgo.selectedTasks.map(t => t.value)) %>,
+        backgroundColor: 'rgba(255, 182, 193, 0.6)', // Light pink
+        borderColor: 'rgba(255, 182, 193, 1)',
+        borderWidth: 1
+      }]
+    };
+
+    // Config and render Knapsack chart
+    new Chart(document.getElementById('knapsackChart'), {
+      type: 'bar',
+      data: knapsackData,
+      options: {
+        scales: {
+          y: { beginAtZero: true }
+        }
+      }
+    });
+
+    // Config and render Greedy chart
+    new Chart(document.getElementById('greedyChart'), {
+      type: 'bar',
+      data: greedyData,
+      options: {
+        scales: {
+          y: { beginAtZero: true }
+        }
+      }
+    });
+  </script>
+</body>
+</html>
+
+
